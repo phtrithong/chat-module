@@ -57,6 +57,5 @@ io.use(function (socket, next) {
 
 rootNsp.on("connection", function (socket) {
   // socket is the initialized socket instance for the client
-
-  console.log('socket :>> ', socket);
+  console.log("socket client " + socket.id + " connected");
 });

@@ -40,20 +40,17 @@ io.use((socket, next) => {
     }
     else {
       // throw the error to the socket client instance
-      return next(new Error(`invalid token`));
+      return next(new Error(`[server] invalid token`));
     }
     // ------------------------------------- //
   }
   catch(err) {
     logger.error(err);
-    // disconnect the socket client
-    socket.disconnect(true);
-    return;
+    return next(new Error(`[server] server internal error`));
   }
 });
 
 rootNsp.on("connection", (socket) => {
   // socket is the initialized socket instance for the client
-
-  console.log('socket :>> ', socket);
+  console.log(`socket client ${socket.id} connected`);
 });
