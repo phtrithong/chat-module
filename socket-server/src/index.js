@@ -1,7 +1,11 @@
 // socket.io@3
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 
-import config from './config';
+import config from './config/index.js';
+
+import { SocketHandler, SocketMiddleware } from './handlers/index.js';
+
+const socketHandler = new SocketHandler;
 
 const options = {
   // path is the endpoint used for init (handshake) the connection
@@ -9,48 +13,26 @@ const options = {
   path: `/ws` // default is "/socket.io"
 }
 
+// init the socket server
 const io = new Server(config.port, options);
+console.log(`started socket server at port ${config.port}`);
+
+// get the instance of "root" namespace
 const rootNsp = io.of("/");
 
 // middleware for validation
-io.use((socket, next) => {
-  try {
-    // auth is an obj passed by the client when init (handshake) the connection
-    // auth obj can be modified
-    let auth = socket.handshake.auth;
-
-    console.log('auth :>> ', auth);
-
-    let {
-      token
-    } = auth;
-
-    // change this to the current authn mechanism 
-    // (as if with jwt) verify the token, parse the token which contains the userId
-    // -------------- example -------------- //
-    if(token === `sylToken`) { 
-      let parsedToken = {
-        userId: `sylId`,
-        userName: `syl`
-      };
-
-      // bind the userId to the initializing socket for later authz
-      socket.userId = parsedToken.userId;
-      return next();
-    }
-    else {
-      // throw the error to the socket client instance
-      return next(new Error(`[server] invalid token`));
-    }
-    // ------------------------------------- //
-  }
-  catch(err) {
-    logger.error(err);
-    return next(new Error(`[server] server internal error`));
-  }
-});
+io.use(SocketMiddleware.validate);
 
 rootNsp.on("connection", (socket) => {
+  let userId = socket.userId;
+
+  socketHandler.initUserJoinedRoom({
+    socket,
+    userId
+  });
+
+
+
+  console.log('userId :>> ', userId);
   // socket is the initialized socket instance for the client
-  console.log(`socket client ${socket.id} connected`);
 });

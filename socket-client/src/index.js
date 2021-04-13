@@ -1,6 +1,6 @@
 // socket.io-client@3
 import { io } from 'socket.io-client';
-import config from './config';
+import config from './config.js';
 
 const rootNsp = '/';
 
@@ -35,7 +35,7 @@ const initRootNspSocket = ({
   rootNspSocket.on("connect_error", (err) => {
     // handle the error message (the message is customized)
     // if invalid token
-    if(err.message === `invalid token`) {
+    if(err.message === `server:invalid_token`) {
       console.log(`getting new token and re-initing`);
       // verify the current token, refresh it or re-login if needed
       // then, re-init the socket client instance
