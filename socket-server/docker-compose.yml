@@ -1,0 +1,36 @@
+services:
+  chat-redis:
+    image: 'docker.io/bitnami/redis:6.2-debian-10'
+    container_name: chat-redis
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - redis_data:/bitnami/redis/data
+      - redis.conf:/usr/local/etc/redis/redis.conf
+
+  chat-rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: chat-rabbitmq
+    volumes:
+        - rabbitmq_etc:/etc/rabbitmq/
+        - rabbitmq_data:/var/lib/rabbitmq/
+        - rabbitmq_log:/var/log/rabbitmq/
+    environment:
+        RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+        RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+        RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    ports:
+        - ${RABBITMQ_PORT}:5672
+        - ${RABBITMQ_WEB_PORT}:15672
+
+volumes:
+  redis_data:
+  redis.conf:
+
+  rabbitmq_etc:
+  rabbitmq_data:
+  rabbitmq_log:
+

@@ -1,4 +1,4 @@
-export class SocketHandler {
+class SocketHandler {
   constructor() {
     this.socketUsers = {};
   }
@@ -31,7 +31,7 @@ export class SocketHandler {
             return resolve(userSocketInstance);
           }
           else {
-            return reject(new Error(`not_found_user_socket_instance`));
+            return resolve(null);
           }
         }        
       }
@@ -50,16 +50,14 @@ export class SocketHandler {
       try {
         let userSocketInstance;
         
-        try {
-          userSocketInstance = await this.getUserSocketInstance({
-            nsp, userId
-          });
-        }
-        catch(e) {
-          throw e;
+        userSocketInstance = await this.getUserSocketInstance({
+          nsp, userId
+        });
+
+        if(userSocketInstance) {
+          userSocketInstance.join(roomId);
         }
 
-        userSocketInstance.join(roomId);
         return resolve(true);
       }
       catch(err) {
@@ -103,8 +101,8 @@ export class SocketHandler {
       try {
         let userSocketInstance = socket;
 
-        // query user joined roomIds from the db
         // change this
+        // query user joined roomIds from the db
         // ----------------- example -------------- //
         let user = {
           userId: `sylId`,
@@ -126,6 +124,7 @@ export class SocketHandler {
           });
         }
 
+        console.log(`user's socket client joined to ${roomIds.length} rooms`)
         return resolve(true);
       }
       catch(err) {
@@ -133,9 +132,45 @@ export class SocketHandler {
       }
     })
   }
-}
 
-export const SocketMiddleware = {
+  setSocketTopicListener ({
+    socket, topic, fn
+  }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let listeners = socket.listeners(topic);
+
+        if(listeners.includes(fn)) {
+          return resolve(true);
+        }
+        else {
+          socket.on(topic, fn);
+          return resolve(true);
+        }
+      }
+      catch(e) {
+        return reject(e);
+      }
+    }) 
+  }
+
+  cleanUserSession ({
+    userId
+  }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        delete this.socketUsers[userId];
+      }
+      catch(err) {
+        return reject(err);
+      }
+    })
+  }
+  
+}
+export const socketHandler = new SocketHandler();
+
+export const socketMiddleware = {
   validate (socket, next) {
     try {
       // auth is an obj passed by the client when init (handshake) the connection
@@ -146,7 +181,7 @@ export const SocketMiddleware = {
         token
       } = auth;
   
-      // change this to the current authn mechanism 
+      // change this 
       // (as if with jwt) verify the token, parse the token which contains the userId
       // -------------- example -------------- //
       if(token === `sylToken`) { 
@@ -170,4 +205,25 @@ export const SocketMiddleware = {
       return next(new Error(`server:internal_error`));
     }
   }
+}
+
+export function getUserProfile ({
+  userId
+}) {
+  // change this
+  // get user info from db or cache to enrich the message
+  // ------------------ example ----------------- //
+  let profile;
+  let exampleUser = {
+    userId: 'sylId',
+    userName: 'sylName',
+    userPicture: 'sylPicture'
+  };
+
+  if(userId === exampleUser.userId) {
+    profile = exampleUser;
+  }
+
+  return profile;
+  // -------------------------------------------- //
 }

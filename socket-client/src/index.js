@@ -1,6 +1,8 @@
 // socket.io-client@3
 import { io } from 'socket.io-client';
-import config from './config.js';
+import config from './config/index.js';
+
+import { socketHandler } from './handlers/index.js';
 
 const rootNsp = '/';
 
@@ -10,6 +12,8 @@ const options = {
   transports: ["websocket"]
 };
 
+const server = `ws://${config.server_host}:${config.server_port}${rootNsp}`;
+
 // obj argument
 // -- token: the authn token of the user using this socket client instance
 const initRootNspSocket = ({
@@ -18,12 +22,24 @@ const initRootNspSocket = ({
   // add "token" to the auth obj
   options.auth.token = token;
 
-  // declare the connection for the socket instance
-  const rootNspSocket = io(`ws://${config.server_host}:${config.server_port}${rootNsp}`, options);
-
+  // declare the socke instance connecting to the "root" namespace
+  const rootNspSocket = io(server, options);
+  console.log(`init socker client to ${server}`);
+  
   // handler invoked when socket client is connected
   rootNspSocket.on("connect", () => {
     console.log(`socket client ${rootNspSocket.id} connected`);
+
+    // send a chat message
+    let message = {
+      roomId: '6075d914390dfe6e8c0495e7',
+      chatContent: {
+        text: 'text-message',
+        image: 'url-to-the-image'
+      }
+    }
+
+    let intervalSendTestMsg = 1 * 1000;
   });
 
   // handler invoked when the connection is stopped
@@ -33,6 +49,7 @@ const initRootNspSocket = ({
 
   // handler invoked when the connection can't establish
   rootNspSocket.on("connect_error", (err) => {
+    console.log(`connection error`);
     // handle the error message (the message is customized)
     // if invalid token
     if(err.message === `server:invalid_token`) {
