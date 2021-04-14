@@ -2,8 +2,6 @@
 import { io } from 'socket.io-client';
 import config from './config/index.js';
 
-import { socketHandler } from './handlers/index.js';
-
 const rootNsp = '/';
 
 const options = {
@@ -29,8 +27,10 @@ const initRootNspSocket = ({
   // handler invoked when socket client is connected
   rootNspSocket.on("connect", () => {
     console.log(`socket client ${rootNspSocket.id} connected`);
-
-    // send a chat message
+    
+    // change this
+    // sendMessage
+    // ------------- example ------------- //
     let message = {
       roomId: '6075d914390dfe6e8c0495e7',
       chatContent: {
@@ -39,8 +39,33 @@ const initRootNspSocket = ({
       }
     }
 
-    let intervalSendTestMsg = 1 * 1000;
+    let intervalSendTestMsg = 5 * 1000;
+
+    setInterval(() => {  
+      rootNspSocket.emit('chat', message, (ack) => {
+        if(!ack) {
+          // change this
+          // the message tranmission is failed
+          // re-send if needed
+        }
+      })
+    }, intervalSendTestMsg);
+
+    // ----------------------------------- //
   });
+
+  // change this
+  // add a handler for handle chat message of a specific room
+  // roomId got from the api
+  // ---------- example ------------------ //
+  let renderingRoomId = '6075d914390dfe6e8c0495e7';
+  rootNspSocket.on(renderingRoomId, (data) => {
+    // change this
+    // update the chat screen here
+    console.log('data :>> ', data);
+  });
+
+  // -------------------------------------//
 
   // handler invoked when the connection is stopped
   rootNspSocket.on("disconnect", (reason) => {

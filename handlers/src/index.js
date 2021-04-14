@@ -11,6 +11,7 @@ export function createChatRoom({
 }) {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log('createChatRoom');
       // change this
       // depend on db design
       // create an entity for the new chat room and store in the db
@@ -26,6 +27,7 @@ export function createChatRoom({
             roomId: uniqueRoomId
           }
         });
+        console.log(`user_join_room to user memberId ${memberId}`);
       }
 
       // -------------------------------- //

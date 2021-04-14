@@ -56,6 +56,7 @@ class SocketHandler {
 
         if(userSocketInstance) {
           userSocketInstance.join(roomId);
+          console.log(`joined user ${userId} to room ${roomId}`)
         }
 
         return resolve(true);

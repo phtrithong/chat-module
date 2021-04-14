@@ -8,3 +8,10 @@
 - handlers (functions for the api server)
 - socket-server (websocket server)
 - socket-client (an example for a client)
+
+3. search for these keyword
+- sendMessage
+- renderMessage
+
+- createChatRoom
+- leaveChatRoom

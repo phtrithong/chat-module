@@ -8,19 +8,4 @@ const rabbitHandler = new RabbitHandler({
   pass: config.rabbitPass
 });
 
-rabbitHandler
-.initConnection().then(() => {
-  rabbitHandler.initChannel().then(() => {
-    // init message queue
-
-    rabbitHandler.initQueue({
-      queueName: `user_join_room`
-    });
-
-    rabbitHandler.initQueue({
-      queueName: `user_leave_room`
-    });
-  });
-});
-
 export default rabbitHandler;
