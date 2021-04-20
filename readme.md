@@ -15,3 +15,5 @@
 
 - createChatRoom
 - leaveChatRoom
+
+## installation

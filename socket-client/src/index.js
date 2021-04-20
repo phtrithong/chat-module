@@ -59,6 +59,7 @@ const initRootNspSocket = ({
   // roomId got from the api
   // ---------- example ------------------ //
   let renderingRoomId = '6075d914390dfe6e8c0495e7';
+  // renderMessage
   rootNspSocket.on(renderingRoomId, (data) => {
     // change this
     // update the chat screen here
