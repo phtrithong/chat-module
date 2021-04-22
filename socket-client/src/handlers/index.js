@@ -28,21 +28,21 @@ export const socketHandler = new SocketHandler();
 function updateChatRoom({
   roomId, newMsg
 }) {
-  // change this
+  // ---- Change this (begin) --- //
   // ---------------------- example -------------- //
   console.log(`
   [room ${roomId}]
   [sender ${JSON.stringify(newMsg.sender)}]
   [chatConet ${JSON.stringify(newMsg.chatContent)}]
   `);
-  // --------------------------------------------- //
+  // ---- Change this (end) --- //
 }
 
 // get list of user joined roomIds
 export function getUserRoomIds({
   userToken
 }) {
-  // change this
+  // ---- Change this (begin) --- //
   // call api for getting joined roomIds list
   //  --------------------- example --------------------- //
   let roomIds = [];
@@ -59,7 +59,7 @@ export function getUserRoomIds({
   }
 
   return roomIds;
-  // ---------------------------------------------------- //
+  // ---- Change this (end) --- //
 }
 
 // init the message/chat handler for updating chat in real-time

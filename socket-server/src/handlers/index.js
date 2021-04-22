@@ -102,7 +102,7 @@ class SocketHandler {
       try {
         let userSocketInstance = socket;
 
-        // change this
+        // ---- Change this (begin) --- //
         // query user joined roomIds from the db
         // ----------------- example -------------- //
         let user = {
@@ -117,7 +117,7 @@ class SocketHandler {
         if(user.userId === userId) {
           roomIds = user.roomIds
         }
-        // ---------------------------------------- //
+        // ---- Change this (end) --- //
 
         if(roomIds.length) {
           roomIds.forEach(roomId => {
@@ -182,7 +182,7 @@ export const socketMiddleware = {
         token
       } = auth;
   
-      // change this 
+      // ---- Change this (begin) --- //
       // (as if with jwt) verify the token, parse the token which contains the userId
       // -------------- example -------------- //
       if(token === `sylToken`) { 
@@ -199,7 +199,7 @@ export const socketMiddleware = {
         // throw the error to the socket client instance
         return next(new Error(`server:invalid_token`));
       }
-      // ------------------------------------- //
+      // ---- Change this (end) --- //
     }
     catch(err) {
       logger.error(err);
@@ -211,7 +211,7 @@ export const socketMiddleware = {
 export function getUserProfile ({
   userId
 }) {
-  // change this
+  // ---- Change this (begin) --- //
   // get user info from db or cache to enrich the message
   // ------------------ example ----------------- //
   let profile;
@@ -226,5 +226,5 @@ export function getUserProfile ({
   }
 
   return profile;
-  // -------------------------------------------- //
+  // ---- Change this (end) --- //
 }

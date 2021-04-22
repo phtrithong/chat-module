@@ -42,10 +42,12 @@ server.setNspTopicListener({
         let userOnlineStatusKey = `user:${userId}:online`;
         redisHandler.del(userOnlineStatusKey);
 
-        // change this
+        // ---- Change this (begin) --- //
         // update user's lastSeen timestamp in db
         let userLastSeen = moment().valueOf();
 
+
+        // ---- Change this (end) --- //
       }
     });
 
@@ -78,11 +80,10 @@ server.setNspTopicListener({
           console.log('err :>> ', err);
         });
 
-        // change this 
+        // ---- Change this (begin) --- //
         // store the message to db
 
-        // -------------------------- //
-
+        // ---- Change this (end) --- //
       }
     });
   }

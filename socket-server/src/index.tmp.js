@@ -47,14 +47,15 @@ rootNsp.on("connection", (socket) => {
     let userOnlineStatusKey = `user:${userId}:online`;
     redisHandler.del(userOnlineStatusKey);
 
-    // change this
+    // ---- Change this (begin) --- //
     // update user's lastSeen timestamp in db
     let userLastSeen = moment().valueOf();
 
+    // ---- Change this (end) --- //
   });
 
   // handler invoked when data is published to topic "chat"
-  // change this
+  // ---- Change this (begin) --- //
   // serverHandleMessage
   socket.on('chat', ({
     roomId,
@@ -79,9 +80,13 @@ rootNsp.on("connection", (socket) => {
     rootNsp.to(roomId) // emit to a specific socket room
     .emit(roomId, toSendMessage);
 
-    // change this 
+    // ---- Change this (begin) --- //
     // store the message to db
 
     // -------------------------- //
-  })
+
+    // ---- Change this (end) --- //
+  });
+
+  // ---- Change this (end) --- //
 });

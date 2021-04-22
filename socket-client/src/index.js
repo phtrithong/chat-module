@@ -26,7 +26,7 @@ const initRootNspSocket = ({ token = "123" }) => {
   rootNspSocket.on("connect", () => {
     console.log(`socket client ${rootNspSocket.id} connected`);
 
-    // change this
+    // ---- Change this (begin) --- //
     // clientSendMessage
     // ------------- example ------------- //
     let message = {
@@ -42,29 +42,32 @@ const initRootNspSocket = ({ token = "123" }) => {
     setInterval(() => {
       rootNspSocket.emit('chat', message, (ack) => {
         if (!ack) {
-          // change this
-          // the message tranmission is failed
-          // re-send if needed
+          // ---- Change this (begin) --- //
+          // If not the ack is false, it means the message tranmission is failed, re-send if needed
+
+          // ---- Change this (end) --- //
         }
       });
     }, intervalSendTestMsg);
 
-    // ----------------------------------- //
+    // ---- Change this (end) --- //
   });
 
-  // change this
+  // ---- Change this (begin) --- //
   // add a handler for handle chat message of a specific room
   // roomId got from the api
   // ---------- example ------------------ //
   let renderingRoomId = "6075d914390dfe6e8c0495e7";
   // clientRenderMessage
   rootNspSocket.on(renderingRoomId, (data) => {
-    // change this
+    // ---- Change this (begin) --- //
     // update the chat screen here
     console.log(`Data received on topic ${renderingRoomId}  :>> `, data);
+
+    // ---- Change this (end) --- //
   });
 
-  // -------------------------------------//
+  // ---- Change this (end) --- //
 
   // handler invoked when the connection is stopped
   rootNspSocket.on("disconnect", (reason) => {
