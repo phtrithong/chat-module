@@ -2,6 +2,7 @@
 
 ## Prerequisities
 
+- node.js
 - rabbitmq: for intercom through services
 - redis: for caching user online status or chat messages (optional)
 
@@ -58,3 +59,47 @@ Search for `clientRenderMessage` to see how  the client listen to the chat messa
 
 Search for `createChatRoom` to see on how the API server handle a user request for creating a new chat room
 Search for `leaveUserFromChatRoom` to see how the API server handle to leave a user from a chat room
+
+## Demo
+
+- Start the **socket-server**
+
+```bash
+cd socket-server
+npm install
+cp .env.example .env
+npm run start:dev
+```
+
+- Start the **socker-client**
+
+```bash
+cd socket-client
+npm install
+cp .env.example .env
+npm run start:dev
+```
+
+- Leave a user from a room
+  In the demo, the user with `userId='sylId` joined to 2 rooms: `6075d914390dfe6e8c0495e7` and `6075d91e7d7a0e01884a24de`
+  
+  Example for leave user from a room
+  
+  ```bash
+  cd handlers
+  npm install
+  cp .env.example .env
+  node ./example/leave_room.js
+  ```
+
+- Create a new room for users
+  In the demo, a new room will be create for 3 users: `sylId`, `jaxId` and `joeId`
+
+  Example for create a new room for users
+  
+  ```bash
+  cd handlers
+  npm install
+  cp .env.example .env
+  node ./example/create_room.js
+  ```

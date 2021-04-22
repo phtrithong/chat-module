@@ -1,4 +1,4 @@
-import { createChatRoom, leaveUserFromChatRoom } from '../src/index.js';
+import { createChatRoom } from '../src/index.js';
 import rabbitHandler from '../src/services/rabbit_handler.js';
 
 async function init() {
@@ -15,8 +15,6 @@ async function init() {
     queueName: `user_leave_room`
   });
 
-  console.log('here');
-
   createChatRoom({
     memberIds: [
       `sylId`,
@@ -24,6 +22,8 @@ async function init() {
       `joeId`
     ]
   });
+
+  process.exit();
 }
 
 init();

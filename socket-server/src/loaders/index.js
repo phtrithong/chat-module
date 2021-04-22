@@ -50,12 +50,16 @@ async function init() {
       } = data;
   
       socketServer.getRootNsp()
-      .then((rootNsp) => {
-        return socketHandler.kickUserFromRoom({
+      .then(async (rootNsp) => {
+        // To leave the user's socket instance from the socket-room
+        await socketHandler.kickUserFromRoom({
           nsp: rootNsp,
           userId,
           roomId
         });
+
+        console.log(`Leave user with id: ${userId} from room with id: ${roomId}`);
+        return;
       })
       .then(() => {
         channel.ack(msg);

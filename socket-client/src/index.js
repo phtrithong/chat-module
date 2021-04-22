@@ -40,7 +40,7 @@ const initRootNspSocket = ({ token = "123" }) => {
     let intervalSendTestMsg = 5 * 1000;
 
     setInterval(() => {
-      rootNspSocket.emit("chat", message, (ack) => {
+      rootNspSocket.emit('chat', message, (ack) => {
         if (!ack) {
           // change this
           // the message tranmission is failed
@@ -61,7 +61,7 @@ const initRootNspSocket = ({ token = "123" }) => {
   rootNspSocket.on(renderingRoomId, (data) => {
     // change this
     // update the chat screen here
-    console.log("data :>> ", data);
+    console.log(`Data received on topic ${renderingRoomId}  :>> `, data);
   });
 
   // -------------------------------------//
