@@ -12,6 +12,8 @@ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 echo -e "${GREEN}____ Install Node.js"
 sudo apt -y install nodejs
 
-echo -e "${GREEN}____ Check Node.js and NPM version"
+echo -e "${GREEN}____ Check Node.js version"
 node --version
+
+echo -e "${GREEN}____ Check NPM version"
 npm --version
