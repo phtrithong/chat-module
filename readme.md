@@ -90,9 +90,10 @@ npm run start:dev
 ```
 
 - Leave a user from a room
-  In the demo, the user with `userId='sylId` joined to 2 rooms: `6075d914390dfe6e8c0495e7` and `6075d91e7d7a0e01884a24de`
+
+  - In the demo, the user with `userId='sylId` joined to 2 rooms: `6075d914390dfe6e8c0495e7` and `6075d91e7d7a0e01884a24de`
   
-  Example for leave user from a room
+  - Example for leaving user from a room
   
   ```bash
   cd handlers
@@ -102,9 +103,10 @@ npm run start:dev
   ```
 
 - Create a new room for users
-  In the demo, a new room will be create for 3 users: `sylId`, `jaxId` and `joeId`
 
-  Example for create a new room for users
+  - In the demo, a new room will be create for 3 users: `sylId`, `jaxId` and `joeId`
+
+  - Example for creating a new room for users
   
   ```bash
   cd handlers
