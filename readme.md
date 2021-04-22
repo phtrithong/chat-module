@@ -27,7 +27,7 @@
 ### 3. Install Node.js (v12)
 
   ```bash
-  bash nodejs_installation.sh
+  bash ./nodejs_installation.sh
   ```
 
 ### 4. Install and run `rabbit_mq` and `redis` for the socker-server
