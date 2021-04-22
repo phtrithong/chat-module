@@ -54,6 +54,8 @@ rootNsp.on("connection", (socket) => {
   });
 
   // handler invoked when data is published to topic "chat"
+  // change this
+  // serverHandleMessage
   socket.on('chat', ({
     roomId,
     chatContent

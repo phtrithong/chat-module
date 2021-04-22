@@ -1,4 +1,4 @@
-import { createChatRoom, leaveChatRoom } from '../src/index.js';
+import { createChatRoom, leaveUserFromChatRoom } from '../src/index.js';
 import rabbitHandler from '../src/services/rabbit_handler.js';
 
 async function init() {
