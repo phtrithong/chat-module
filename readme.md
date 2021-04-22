@@ -8,14 +8,15 @@
 
 ## Modules
 
-- handlers (functions for the api server)
-- socket-server (websocket server)
-- socket-client (an example for a client)
+- handlers (methods to interact with the chat-server)
+- socket-server (socket-server)
+- socket-client (an example for a socket-client)
 
 ## Installation
 
 ### 1. Set up EC2 instance (Ubuntu)
-
+- Use the "Ubuntu Server 18.04 LTS (HVM), SSD Volume Type" instance type.
+![](/docs/images/ec2_set_up.png)
 
 ### 2. Install `docker` and `docker-compose`
 
@@ -45,6 +46,8 @@ docker-compose --env-file ./.env up -d
 ```bash
 docker ps
 ```
+
+![](/docs/images/check_rabbit_redis.png)
 
 ## Handlers for integration
 
