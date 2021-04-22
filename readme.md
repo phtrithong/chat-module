@@ -24,7 +24,13 @@
   bash ./docker_installation.sh
   ```
 
-### 3. Install and run `rabbit_mq` and `redis` for the socker-server
+### 3. Install Node.js (v12)
+
+  ```bash
+  bash nodejs_installation.sh
+  ```
+
+### 4. Install and run `rabbit_mq` and `redis` for the socker-server
 
 - Create and `./socket-server/.env` or clone the `./socket-server/.env.example`
 
